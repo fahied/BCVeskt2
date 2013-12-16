@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BCVeskt2.iml" filepath="$PROJECT_DIR$/BCVeskt2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bcvekst/libs/android-async-http-1.4.4/android-async-http-1.4.4.iml" filepath="$PROJECT_DIR$/bcvekst/libs/android-async-http-1.4.4/android-async-http-1.4.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bcvekst/bcvekst.iml" filepath="$PROJECT_DIR$/bcvekst/bcvekst.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bcvekst/libs/libs.iml" filepath="$PROJECT_DIR$/bcvekst/libs/libs.iml" />
+    </modules>
+  </component>
+</project>
+
