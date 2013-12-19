@@ -3,6 +3,7 @@ package no.jpg.bcvekst;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,6 +19,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -31,6 +35,10 @@ public class CreateUser extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_create_user);
 
         if (savedInstanceState == null) {
@@ -39,6 +47,19 @@ public class CreateUser extends Activity {
                     .commit();
         }
     }
+
+    /**
+     * Hide keyboard when user tap on empty screen area
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+                INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
+
+
 
     /**
      * A placeholder fragment containing a simple view.
@@ -99,6 +120,12 @@ public class CreateUser extends Activity {
             });
             return rootView;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

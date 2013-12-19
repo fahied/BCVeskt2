@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/editText"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="10dp"
+        android:hint="Ditt navn (i.e lars lomell)"
+        android:layout_toRightOf="@+id/imageViewUser" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,11 +28,13 @@
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:hint="Din epost"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -41,22 +43,26 @@
         android:ems="10"
         android:id="@+id/editText3"
         android:layout_below="@+id/editText2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:hint="Forhandlernummer"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText4"
         android:layout_below="@+id/editText3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:hint="Kjede"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_alignStart="@+id/editText3" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -65,11 +71,13 @@
         android:ems="10"
         android:id="@+id/editText5"
         android:layout_below="@+id/editText4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:hint="Telefon"
+        android:layout_alignLeft="@+id/editText4"
+        android:layout_alignStart="@+id/editText4" />
 
     <Button
         android:layout_width="wrap_content"
@@ -94,4 +102,19 @@
         android:minHeight="100dp"
         android:minWidth="100dp"
         android:src="@drawable/user" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewUser"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:maxHeight="20dp"
+        android:maxWidth="20dp"
+        android:minHeight="20dp"
+        android:minWidth="20dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/user"
+        android:layout_marginLeft="5dp" />
 </RelativeLayout>

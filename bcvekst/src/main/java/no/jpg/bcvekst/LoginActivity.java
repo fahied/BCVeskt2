@@ -10,6 +10,8 @@ import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import org.json.JSONException;
@@ -22,6 +24,10 @@ public class LoginActivity extends Activity implements ServiceConnection{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_login);
 
         if (savedInstanceState == null) {
@@ -33,6 +39,8 @@ public class LoginActivity extends Activity implements ServiceConnection{
         Intent bindIntent = new Intent(this, AppSynchronizer.class);
         bindService(bindIntent, this, BIND_AUTO_CREATE);
     }
+
+
 
     /**
      * A placeholder fragment containing a simple view.
@@ -49,6 +57,18 @@ public class LoginActivity extends Activity implements ServiceConnection{
             View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
 
+            //open the main webview
+            Button userButton = (Button) rootView.findViewById(R.id.userButton);
+            userButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent createUser = new Intent(LoginActivity.this, CreateUser.class);
+                    createUser.putExtra("key", "value"); //Optional parameters
+                    //custom animation
+                    startActivity(createUser);
+                }
+            });
 
             return  rootView;
         }
@@ -63,6 +83,7 @@ public class LoginActivity extends Activity implements ServiceConnection{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
     @Override
     public void onServiceDisconnected(ComponentName componentName) {

@@ -3,6 +3,7 @@ package no.jpg.bcvekst;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URL;
 
 import no.jpg.bcvekst.controllers.BCRestClient;
 
@@ -41,14 +43,12 @@ public class AppSynchronizer extends Service {
         return  mLocalBinder;
     }
 
-    public void doLongRunningOperation() {
-// TODO Start new thread for long running operation...
-    }
     public class LocalBinder extends Binder {
         public AppSynchronizer getService() {
             return AppSynchronizer.this;
         }
     }
+
 
     // download files json async
     public void getFileList() throws JSONException {
@@ -64,23 +64,24 @@ public class AppSynchronizer extends Service {
                 }
                 assert fileList != null;
                 // Do something with the response
-                for (int i = 0; i < fileList.length(); i++)
-                    try {
-                        JSONObject afile = (JSONObject) fileList.get(i);
-                        System.out.println(afile.toString());
 
-                        downloadFile(afile.getString("file"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                DownloadFilesTask task = new DownloadFilesTask();
+                 task.execute(fileList);
+//                for (int i = 0; i < fileList.length(); i++)
+//                    try {
+//                        JSONObject afile = (JSONObject) fileList.get(i);
+//                        System.out.println(afile.toString());
+//
+//                        downloadFile(afile.getString("file"));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
             }
         });
     }
 
     public void downloadFile(String filePath)
     {
-        String fileName = FilenameUtils.getName(filePath);
-
         String[] allowedContentTypes = new String[] { ".*"  };
         BCRestClient.get(filePath, new BinaryHttpResponseHandler(allowedContentTypes) {
             @Override
@@ -100,4 +101,39 @@ public class AppSynchronizer extends Service {
             }
         });
     }
+
+
+
+    private class DownloadFilesTask extends AsyncTask<JSONArray, Integer, Long> {
+
+        protected Long doInBackground(JSONArray... paths) {
+            JSONArray files = paths[0];
+            int count = files.length();
+            long totalSize = 0;
+            for (int i = 0; i < files.length(); i++)
+            {
+                try {
+                    JSONObject afile = (JSONObject) files.get(i);
+                    System.out.println(afile.toString());
+
+                    downloadFile(afile.getString("file"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            // Escape early if cancel() is called
+            if (isCancelled()) break;
+        }
+        return totalSize;
+    }
+
+        protected void onProgressUpdate(Integer... progress) {
+           // setProgressPercent(progress[0]);
+        }
+
+        protected void onPostExecute(Long result) {
+            //showDialog("Downloaded " + result + " bytes");
+            System.out.println("All Files downloaded successfully");
+        }
+    }
+
 }
